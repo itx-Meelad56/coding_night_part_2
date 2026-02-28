@@ -86,26 +86,9 @@
         style="margin-top:0.75rem;background:transparent;color:var(--text-muted);border:none;width:100%;">Cancel</button>
     </div>
   </div>
-
   <script type="module">
-  import { initDashboard } from './js/dashboard.js'
-  import { renderSidebar, showSection, openModal, closeModal, savePatient, saveAppointment, savePrescription } from './js/dashboard.js'
-
-  // Global banane ke liye
-  window.renderSidebar = renderSidebar
-  window.showSection = showSection
-  window.openModal = openModal
-  window.closeModal = closeModal
-  window.savePatient = savePatient
-  window.saveAppointment = saveAppointment
-  window.savePrescription = savePrescription
-  window.logout = () => {
-    import('./js/dashboard.js').then(m => m.logout())
-  }
-
-  // Start dashboard
-  initDashboard()
-</script>
-</body>
-
-</html>
+    import { initDashboard } from './js/dashboard.js'
+    import { renderSidebar, showSection, openModal, closeModal, savePatient, saveAppointment, savePrescription } from './js/dashboard.js'
+    </script>
+</body >
+</html >
