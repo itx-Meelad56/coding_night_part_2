@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Clinic - Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+  <aside
+    style="width:280px;background:var(--dark);border-right:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:3rem;">
+      <div
+        style="width:50px;height:50px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:12px;display:flex;align-items:center;justify-content:center;">
+        <i class="fa-solid fa-hospital text-white"></i>
+      </div>
+      <div>
+        <h2 style="font-size:1.6rem;">AI Clinic</h2>
+        <p style="color:var(--primary);font-size:0.8rem;">by MEELAD RAZA</p>
+      </div>
+    </div>
+    <nav id="sidebar-menu" style="flex:1;display:flex;flex-direction:column;gap:8px;"></nav>
+    <div onclick="logout()"
+      style="color:var(--red);padding:14px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:12px;">
+      <i class="fas fa-right-from-bracket"></i> Logout
+    </div>
+  </aside>
+
+  <main style="flex:1;display:flex;flex-direction:column;">
+    <header
+      style="background:var(--dark);border-bottom:1px solid var(--border);padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;">
+      <h1 id="page-title" style="margin:0;font-size:1.6rem;">Dashboard</h1>
+      <div style="text-align:right;">
+        <p id="user-name" style="margin:0;font-weight:500;"></p>
+        <p id="user-role" style="color:var(--primary);margin:4px 0 0;"></p>
+      </div>
+    </header>
+    <div id="main-content" style="flex:1;padding:2rem;overflow:auto;"></div>
+  </main>
+
+  <!-- Add Patient Modal -->
+  <div id="add-patient-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2 style="margin-bottom:1.5rem;color:var(--primary);">Add New Patient</h2>
+      <input id="p-name" type="text" placeholder="Full Name">
+      <input id="p-age" type="number" placeholder="Age">
+      <select id="p-gender">
+        <option value="">Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <input id="p-contact" type="text" placeholder="Contact Number">
+      <button onclick="savePatient()" class="btn-primary" style="margin-top:1rem;">Save Patient</button>
+      <button onclick="closeModal('add-patient-modal')"
+        style="margin-top:0.75rem;background:transparent;color:var(--text-muted);border:none;width:100%;">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Book Appointment Modal -->
+  <div id="book-appointment-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2 style="margin-bottom:1.5rem;color:var(--primary);">Book Appointment</h2>
+      <input id="a-patient-id" type="number" placeholder="Patient ID">
+      <input id="a-date" type="date" placeholder="Date">
+      <input id="a-time" type="time" placeholder="Time">
+      <button onclick="saveAppointment()" class="btn-primary" style="margin-top:1rem;">Book Now</button>
+      <button onclick="closeModal('book-appointment-modal')"
+        style="margin-top:0.75rem;background:transparent;color:var(--text-muted);border:none;width:100%;">Cancel</button>
+    </div>
+  </div>
+
+  <!-- New Prescription Modal -->
+  <div id="new-prescription-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2 style="margin-bottom:1.5rem;color:var(--primary);">New Prescription</h2>
+      <input id="pr-patient-id" type="number" placeholder="Patient ID">
+      <textarea id="pr-medicines" placeholder="Medicines (one per line)" style="height:100px;"></textarea>
+      <textarea id="pr-instructions" placeholder="Instructions / Advice" style="height:80px;"></textarea>
+      <button onclick="savePrescription()" class="btn-primary" style="margin-top:1rem;">Save Prescription</button>
+      <button onclick="closeModal('new-prescription-modal')"
+        style="margin-top:0.75rem;background:transparent;color:var(--text-muted);border:none;width:100%;">Cancel</button>
+    </div>
+  </div>
+
+  <script type="module">
+  import { initDashboard } from './js/dashboard.js'
+  import { renderSidebar, showSection, openModal, closeModal, savePatient, saveAppointment, savePrescription } from './js/dashboard.js'
+
+  // Global banane ke liye
+  window.renderSidebar = renderSidebar
+  window.showSection = showSection
+  window.openModal = openModal
+  window.closeModal = closeModal
+  window.savePatient = savePatient
+  window.saveAppointment = saveAppointment
+  window.savePrescription = savePrescription
+  window.logout = () => {
+    import('./js/dashboard.js').then(m => m.logout())
+  }
+
+  // Start dashboard
+  initDashboard()
+</script>
+</body>
+
+</html>
