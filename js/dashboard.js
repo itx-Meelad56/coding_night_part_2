@@ -1,9 +1,9 @@
-import { supabase } from './js/supabase.js'
+import { supabase } from './supabase.js'
 
     let currentRole = 'patient'
 
     const { data: { session } } = await supabase.auth.getSession()
-    if (!session) return location.href = 'index.html'
+    if (!session){ location.href = '/index.html'}
 
     window.currentUserId = session.user.id
 

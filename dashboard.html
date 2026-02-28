@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,44 +7,43 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+<body style="display:flex; min-height:100vh; margin:0; background:#0a0a0a; color:#e5e7eb;">
 
-<body>
-
-  <aside
-    style="width:280px;background:var(--dark);border-right:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:3rem;">
-      <div
-        style="width:50px;height:50px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:12px;display:flex;align-items:center;justify-content:center;">
+  <!-- Sidebar -->
+  <aside style="width:280px; background:#0f0f0f; border-right:1px solid #1f2937; padding:2rem; display:flex; flex-direction:column;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:3rem;">
+      <div style="width:50px; height:50px; background:linear-gradient(135deg,#10b981,#059669); border-radius:12px; display:flex; align-items:center; justify-content:center;">
         <i class="fa-solid fa-hospital text-white"></i>
       </div>
       <div>
-        <h2 style="font-size:1.6rem;">AI Clinic</h2>
-        <p style="color:var(--primary);font-size:0.8rem;">by MEELAD RAZA</p>
+        <h2 style="font-size:1.6rem; font-weight:bold;">AI Clinic</h2>
+        <p style="color:#10b981; font-size:0.8rem;">by MEELAD RAZA</p>
       </div>
     </div>
-    <nav id="sidebar-menu" style="flex:1;display:flex;flex-direction:column;gap:8px;"></nav>
-    <div onclick="logout()"
-      style="color:var(--red);padding:14px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:12px;">
+
+    <nav id="sidebar-menu" style="flex:1; display:flex; flex-direction:column; gap:8px;"></nav>
+
+    <div onclick="logout()" style="color:#ef4444; padding:14px; border-radius:10px; cursor:pointer; display:flex; align-items:center; gap:12px;">
       <i class="fas fa-right-from-bracket"></i> Logout
     </div>
   </aside>
 
-  <main style="flex:1;display:flex;flex-direction:column;">
-    <header
-      style="background:var(--dark);border-bottom:1px solid var(--border);padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;">
-      <h1 id="page-title" style="margin:0;font-size:1.6rem;">Dashboard</h1>
+  <!-- Main -->
+  <main style="flex:1; display:flex; flex-direction:column;">
+    <header style="background:#0f0f0f; border-bottom:1px solid #1f2937; padding:1.2rem 2rem; display:flex; justify-content:space-between; align-items:center;">
+      <h1 id="page-title" style="margin:0; font-size:1.6rem;">Dashboard</h1>
       <div style="text-align:right;">
-        <p id="user-name" style="margin:0;font-weight:500;"></p>
-        <p id="user-role" style="color:var(--primary);margin:4px 0 0;"></p>
+        <p id="user-name" style="margin:0; font-weight:500;"></p>
+        <p id="user-role" style="color:#10b981; margin:4px 0 0;"></p>
       </div>
     </header>
-    <div id="main-content" style="flex:1;padding:2rem;overflow:auto;"></div>
+    <div id="main-content" style="flex:1; padding:2rem; overflow:auto;"></div>
   </main>
 
   <!-- Add Patient Modal -->
   <div id="add-patient-modal" class="modal" style="display:none;">
     <div class="modal-content">
-      <h2 style="margin-bottom:1.5rem;color:var(--primary);">Add New Patient</h2>
+      <h2 style="margin-bottom:1.5rem; color:#10b981;">Add New Patient</h2>
       <input id="p-name" type="text" placeholder="Full Name">
       <input id="p-age" type="number" placeholder="Age">
       <select id="p-gender">
@@ -56,39 +54,240 @@
       </select>
       <input id="p-contact" type="text" placeholder="Contact Number">
       <button onclick="savePatient()" class="btn-primary" style="margin-top:1rem;">Save Patient</button>
-      <button onclick="closeModal('add-patient-modal')"
-        style="margin-top:0.75rem;background:transparent;color:var(--text-muted);border:none;width:100%;">Cancel</button>
+      <button onclick="closeModal('add-patient-modal')" style="margin-top:0.75rem; background:transparent; color:#9ca3af; border:none; width:100%;">Cancel</button>
     </div>
   </div>
 
   <!-- Book Appointment Modal -->
   <div id="book-appointment-modal" class="modal" style="display:none;">
     <div class="modal-content">
-      <h2 style="margin-bottom:1.5rem;color:var(--primary);">Book Appointment</h2>
-      <input id="a-patient-id" type="number" placeholder="Patient ID">
-      <input id="a-date" type="date" placeholder="Date">
-      <input id="a-time" type="time" placeholder="Time">
+      <h2 style="margin-bottom:1.5rem; color:#10b981;">Book Appointment</h2>
+      <input id="a-patient-id" type="number" placeholder="Patient ID (from Patients section)">
+      <input id="a-date" type="date">
+      <input id="a-time" type="time">
       <button onclick="saveAppointment()" class="btn-primary" style="margin-top:1rem;">Book Now</button>
-      <button onclick="closeModal('book-appointment-modal')"
-        style="margin-top:0.75rem;background:transparent;color:var(--text-muted);border:none;width:100%;">Cancel</button>
+      <button onclick="closeModal('book-appointment-modal')" style="margin-top:0.75rem; background:transparent; color:#9ca3af; border:none; width:100%;">Cancel</button>
     </div>
   </div>
 
   <!-- New Prescription Modal -->
   <div id="new-prescription-modal" class="modal" style="display:none;">
     <div class="modal-content">
-      <h2 style="margin-bottom:1.5rem;color:var(--primary);">New Prescription</h2>
+      <h2 style="margin-bottom:1.5rem; color:#10b981;">New Prescription</h2>
       <input id="pr-patient-id" type="number" placeholder="Patient ID">
       <textarea id="pr-medicines" placeholder="Medicines (one per line)" style="height:100px;"></textarea>
       <textarea id="pr-instructions" placeholder="Instructions / Advice" style="height:80px;"></textarea>
       <button onclick="savePrescription()" class="btn-primary" style="margin-top:1rem;">Save Prescription</button>
-      <button onclick="closeModal('new-prescription-modal')"
-        style="margin-top:0.75rem;background:transparent;color:var(--text-muted);border:none;width:100%;">Cancel</button>
+      <button onclick="closeModal('new-prescription-modal')" style="margin-top:0.75rem; background:transparent; color:#9ca3af; border:none; width:100%;">Cancel</button>
     </div>
   </div>
-  <script type="module">
-    import { initDashboard } from './js/dashboard.js'
-    import { renderSidebar, showSection, openModal, closeModal, savePatient, saveAppointment, savePrescription } from './js/dashboard.js'
-    </script>
-</body >
-</html >
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+  const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_ANON_KEY')  // ← Yahan apne keys daal do
+
+  let currentRole = 'patient'
+  let currentUserId = null
+
+  // Logout
+  window.logout = () => {
+    supabase.auth.signOut()
+    location.href = 'index.html'
+  }
+
+  // Render Sidebar
+  function renderSidebar() {
+    const menu = document.getElementById('sidebar-menu')
+    let html = `
+      <div onclick="showSection('home')" class="sidebar-item hover-bg">
+        <i class="fas fa-home"></i> Home
+      </div>
+    `
+
+    if (['receptionist','doctor','admin'].includes(currentRole)) {
+      html += `
+        <div onclick="showSection('patients')" class="sidebar-item hover-bg">
+          <i class="fas fa-users"></i> Patients
+        </div>
+        <div onclick="showSection('appointments')" class="sidebar-item hover-bg">
+          <i class="fas fa-calendar"></i> Appointments
+        </div>
+      `
+    }
+
+    if (['doctor','admin'].includes(currentRole)) {
+      html += `
+        <div onclick="showSection('prescriptions')" class="sidebar-item hover-bg">
+          <i class="fas fa-file-prescription"></i> Prescriptions
+        </div>
+      `
+    }
+
+    if (currentRole === 'patient') {
+      html += `
+        <div onclick="showSection('my-prescriptions')" class="sidebar-item hover-bg">
+          <i class="fas fa-file-prescription"></i> Meri Prescriptions
+        </div>
+      `
+    }
+
+    menu.innerHTML = html
+  }
+
+  // Show Section
+  window.showSection = async (section) => {
+    document.getElementById('page-title').textContent = section === 'home' ? 'Dashboard' : section.charAt(0).toUpperCase() + section.slice(1).replace('-',' ')
+
+    const content = document.getElementById('main-content')
+
+    if (section === 'home') {
+      content.innerHTML = `
+        <div style="text-align:center;padding:120px 20px;">
+          <h1 style="font-size:3rem;color:#10b981;">Welcome to AI Clinic</h1>
+          <p style="color:#9ca3af;margin-top:1rem;font-size:1.2rem;">Modern Clinic Management System</p>
+        </div>
+      `
+      return
+    }
+
+    if (section === 'patients') {
+      const { data } = await supabase.from('patients').select('*').order('created_at', {ascending:false})
+      let h = `<button onclick="openModal('add-patient-modal')" class="btn-primary" style="margin-bottom:1.5rem;">+ Add New Patient</button>`
+      h += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">`
+      if (data?.length) {
+        data.forEach(p => {
+          h += `<div class="card"><h3 style="margin-bottom:0.5rem;">${p.name}</h3><p style="color:#9ca3af;">${p.age||'?'} yrs • ${p.gender||'?'} • ${p.contact||'-'}</p></div>`
+        })
+      } else {
+        h += `<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:3rem 0;">No patients added yet</p>`
+      }
+      h += `</div>`
+      content.innerHTML = h
+    }
+
+    if (section === 'appointments') {
+      const { data } = await supabase.from('appointments').select('*, patients(name)').order('appointment_date')
+      let h = `<button onclick="openModal('book-appointment-modal')" class="btn-primary" style="margin-bottom:1.5rem;">+ Book Appointment</button>`
+      h += `<div style="display:flex;flex-direction:column;gap:1rem;">`
+      if (data?.length) {
+        data.forEach(a => {
+          h += `<div class="card"><strong>${a.patients?.name || 'Unknown'}</strong><br><span style="color:#9ca3af;">${a.appointment_date} • ${a.appointment_time||'--'} • ${a.status}</span></div>`
+        })
+      } else {
+        h += `<p style="text-align:center;color:#9ca3af;padding:3rem 0;">No appointments booked yet</p>`
+      }
+      h += `</div>`
+      content.innerHTML = h
+    }
+
+    if (section === 'prescriptions') {
+      let h = `<button onclick="openModal('new-prescription-modal')" class="btn-primary" style="margin-bottom:1.5rem;">+ New Prescription</button>`
+      h += `<p style="color:#9ca3af;">Prescriptions added by doctor will appear here</p>`
+      content.innerHTML = h
+    }
+
+    if (section === 'my-prescriptions') {
+      content.innerHTML = `<h2 style="color:#10b981;margin-bottom:1rem;">Meri Prescriptions</h2><p style="color:#9ca3af;">Doctor jo likhega yahan dikhega</p>`
+    }
+  }
+
+  // Modal Helpers
+  window.openModal = (id) => document.getElementById(id).style.display = 'flex'
+  window.closeModal = (id) => document.getElementById(id).style.display = 'none'
+
+  // Save Patient
+  window.savePatient = async () => {
+    const name = document.getElementById('p-name')?.value.trim()
+    const age = document.getElementById('p-age')?.value
+    const gender = document.getElementById('p-gender')?.value
+    const contact = document.getElementById('p-contact')?.value.trim()
+
+    if (!name) return alert('Name required!')
+
+    const { error } = await supabase.from('patients').insert([{ name, age: Number(age)||null, gender, contact }])
+    if (error) alert("Error: " + error.message)
+    else {
+      alert("Patient added!")
+      closeModal('add-patient-modal')
+      showSection('patients')
+    }
+  }
+
+  // Save Appointment
+  window.saveAppointment = async () => {
+    const patientId = document.getElementById('a-patient-id')?.value
+    const date = document.getElementById('a-date')?.value
+    const time = document.getElementById('a-time')?.value
+
+    if (!patientId || !date) return alert('Patient ID and Date required!')
+
+    const { data: { session } } = await supabase.auth.getSession()
+    if (!session?.user?.id) return alert('Login issue - logout and login again')
+
+    const { error } = await supabase.from('appointments').insert([{
+      patient_id: Number(patientId),
+      doctor_id: session.user.id,
+      appointment_date: date,
+      appointment_time: time,
+      status: 'pending'
+    }])
+
+    if (error) alert("Error: " + error.message)
+    else {
+      alert("Appointment booked!")
+      closeModal('book-appointment-modal')
+      showSection('appointments')
+    }
+  }
+
+  // Save Prescription
+  window.savePrescription = async () => {
+    const patientId = document.getElementById('pr-patient-id')?.value
+    const medicinesText = document.getElementById('pr-medicines')?.value.trim()
+    const instructions = document.getElementById('pr-instructions')?.value.trim()
+
+    if (!patientId || !medicinesText) return alert('Patient ID and Medicines required!')
+
+    const { data: { session } } = await supabase.auth.getSession()
+    if (!session?.user?.id) return alert('Login issue')
+
+    const medicines = medicinesText.split('\n').map(m => m.trim()).filter(Boolean)
+
+    const { error } = await supabase.from('prescriptions').insert([{
+      patient_id: Number(patientId),
+      doctor_id: session.user.id,
+      medicines,
+      instructions: instructions || null
+    }])
+
+    if (error) alert("Error: " + error.message)
+    else {
+      alert("Prescription saved!")
+      closeModal('new-prescription-modal')
+      showSection('prescriptions')
+    }
+  }
+
+  // Start Dashboard
+  (async () => {
+    const { data: { session } } = await supabase.auth.getSession()
+    if (!session) return location.href = 'index.html'
+
+    const { data: profile } = await supabase.from('profiles').select('name,role').eq('id', session.user.id).single()
+
+    document.getElementById('user-name').textContent = profile?.name || session.user.email
+    document.getElementById('user-role').textContent = (profile?.role || 'patient').toUpperCase()
+
+    currentRole = profile?.role || 'patient'
+    renderSidebar()
+    showSection('home')
+  })()
+
+  window.logout = () => {
+  supabase.auth.signOut()
+  location.href = 'index.html'
+}
+</script>
+</body>
+</html>
